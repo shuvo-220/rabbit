@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 import { HiOutlineUser, HiOutlineShoppingBag, HiBars3BottomRight } from 'react-icons/hi2';
 import SearchBar from './SearchBar';
 import CartDrawer from '../layout/CartDrawer';
+import { IoMdClose } from 'react-icons/io';
 
 const Navbar = () => {
 
-   const[drawerOpen, setDrawerOpen] = useState(true);
+   const[drawerOpen, setDrawerOpen] = useState(false);
+  //  const[navDrawerOpen, setNavDrawerOpen] = useState(false);
+
+  //  const toggleNavbarDrawer=()=>{
+  //   setNavDrawerOpen(!navDrawerOpen);
+  //  }
   
     const toggleCartDrawer=()=>{
       setDrawerOpen(!drawerOpen);
@@ -53,6 +59,16 @@ const Navbar = () => {
       </div>
     </nav>
     <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
+
+    {/* mobile navigation */}
+    {/* <div className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${drawerOpen? 'translate-x-0':'-translate-x-full'}`}>
+      <div className='flex justify-end p-4'>
+        <button>
+          <IoMdClose className='w-6 h-6 text-gray-600' />
+        </button>
+      </div>
+    </div> */}
+
     </>
   )
 }
