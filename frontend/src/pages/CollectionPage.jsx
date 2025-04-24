@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {FaFilter} from 'react-icons/fa';
+import { FaFilter } from 'react-icons/fa';
 import FilterSidebar from '../components/products/FilterSidebar';
 import SortOptions from '../components/products/SortOptions';
 import ProductGrid from '../components/products/ProductGrid';
@@ -10,25 +10,28 @@ const CollectionPage = () => {
 
     const sidebarRef = useRef(null);
 
-    const[isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar=()=>{
+    const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     }
 
-    const handleClickOutside=(e)=>{
+    const handleClickOutside = (e) => {
         //close sidebar if clicked outside
-        if(sidebarRef.current && !sidebarRef.current.contains(e.target)){
+        if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
             setIsSidebarOpen(false)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         //add event for click
         document.addEventListener('mousedown', handleClickOutside)
-        //clear event listner
-        document.removeEventListener('mousedown', handleClickOutside)
-    })
+
+        return () => {
+            //clear event listner
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    },[]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -83,7 +86,7 @@ const CollectionPage = () => {
                 }
             ]
             setProducts(fetchProducts)
-        },1000)
+        }, 1000)
     }, [])
 
     return (
