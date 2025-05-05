@@ -37,10 +37,15 @@ const EditProductPage = () => {
     console.log(file)
   }
 
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    
+  }
+
   return (
     <div className='max-w-5xl mx-auto p-6 shadow-md rounded-md'>
       <h2 className='text-3xl font-bold mb-6 '>Edit Product</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* name */}
         <div className='mb-6'>
           <label className='block font-semibold mb-2 '>Product Name</label>
