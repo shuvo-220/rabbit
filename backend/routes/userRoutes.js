@@ -25,7 +25,7 @@ router.post('/register', async(req, res)=>{
                     email:user.email,
                     role:user.role
                 },
-                token
+                token 
             })
         })
     } catch (error) {
@@ -34,7 +34,7 @@ router.post('/register', async(req, res)=>{
 });
 
 //login
-router.post('/login', protect, async(req, res)=>{
+router.post('/login', async(req, res)=>{
     const{email, password} = req.body;
     try {
         let user = await User.findOne({email})
