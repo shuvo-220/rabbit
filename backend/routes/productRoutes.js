@@ -48,6 +48,19 @@ router.delete('/:id', protect, admin, async(req, res)=>{
     } catch (error) {
         res.status(400).json(error.message)
     }
+});
+
+
+router.get('/:id', async(req, res)=>{
+    try {
+      const product = await Product.findById(req.params.id);
+      if(!product){
+        res.status(500).json({message:'product not found'});
+      }
+      res.status(200).json(product)
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
 })
 
 
