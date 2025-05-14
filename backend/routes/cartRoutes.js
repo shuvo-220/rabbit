@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
         } else {
             const newCart = await Cart.create({
                 userId: userId ? userId : undefined,
-                //  guestId: guestId ? guestId : 'guest_' + new Date().getTime(),
+                 guestId: guestId ? guestId : 'guest_' + new Date().getTime(),
                 products: [
                     {
                         productId,
@@ -90,12 +90,49 @@ router.put('/', async (req, res) => {
             }
             cart.totalPrice = cart.products.reduce((acc, item) => acc + item.price * item.quantity, 0)
             await cart.save();
-            res.status(200).json(cart)
+            return res.status(200).json(cart)
         }else{
             res.status(404).json({message:'product not found'});
         }
     } catch (error) {
         console.log(error.message);
+    }
+})
+
+router.delete('/', async(req, res)=>{
+    const{productId, size,color,guestId, userId} = req.body;
+    try {
+        let cart = await getCart(userId, guestId);
+        if(!cart) return res.status(404).json({message:'cart not found'});
+        const productIndex = cart.products.findIndex((p)=>
+             p.productId.toString() === productId && 
+             p.size === size && 
+             p.color === color
+            )
+        if(productIndex>-1){
+            cart.products.splice(productIndex, 1)
+            cart.totalPrice = cart.products.reduce((acc, item)=>acc+item.price * item.quantity, 0)
+            await cart.save();
+            return res.status(200).json(cart)
+        }else{
+            return res.status(404).json({message:'product not found on cart'});
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+router.get('/', async(req, res)=>{
+    const{userId, guestId} = req.query;
+    try {
+        const cart = getCart(userId, guestId);
+        if(cart){
+            res.status(200).json(cart)
+        }else{
+            res.status(404).json({message:'cart not found'});
+        }
+    } catch (error) {
+        console.log(error.message)
     }
 })
 
