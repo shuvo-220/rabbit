@@ -67,7 +67,7 @@ const orderSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['processing', 'shipped', 'delivered', 'cancel'],
+        enum:['processing', 'shipped', 'Delivered', 'cancel'],
         default:'processing'
     }
 },{timeseries:true});
